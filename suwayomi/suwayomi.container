@@ -5,8 +5,8 @@ After=flaresolverr.service
 [Container]
 ContainerName=suwayomi
 Image=ghcr.io/suwayomi/tachidesk:latest
-Network=suwayomi
-Network=flaresolverr
+Network=suwayomi.network
+Network=flaresolverr.network
 PublishPort=14567:4567
 User=root
 Volume=%h/containers/suwayomi/data:/home/suwayomi/.local/share/Tachidesk

@@ -2,7 +2,7 @@
 ContainerName=flaresolverr
 ExposeHostPort=8191
 Image=docker.io/flaresolverr/flaresolverr:latest
-Network=flaresolverr
+Network=flaresolverr.network
 Environment=TZ=Asia/Tokyo
 
 [Service]
