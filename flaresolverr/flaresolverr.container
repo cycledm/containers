@@ -1,0 +1,9 @@
+[Container]
+ContainerName=flaresolverr
+ExposeHostPort=8191
+Image=docker.io/flaresolverr/flaresolverr:latest
+Network=flaresolverr
+Environment=TZ=Asia/Tokyo
+
+[Service]
+Restart=always

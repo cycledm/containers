@@ -1,0 +1,34 @@
+services:
+  flaresolverr:
+    container_name: flaresolverr
+    image: docker.io/flaresolverr/flaresolverr:latest
+    restart: unless-stopped
+    expose:
+      - 8191
+    env_file: .env
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    networks:
+      - flaresolverr
+  suwayomi:
+    container_name: suwayomi
+    image: ghcr.io/suwayomi/tachidesk:latest
+    restart: unless-stopped
+    depends_on:
+      - flaresolverr
+    ports:
+      - 14567:4567
+    volumes:
+      - ./data:/home/suwayomi/.local/share/Tachidesk
+    env_file: .env
+    user: root
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    networks:
+      - suwayomi
+      - flaresolverr
+networks:
+  suwayomi: {}
+  flaresolverr: {}
