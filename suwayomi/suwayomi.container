@@ -11,7 +11,6 @@ PublishPort=14567:4567
 User=root
 Volume=%h/containers/suwayomi/data:/home/suwayomi/.local/share/Tachidesk
 Environment=TZ=Asia/Tokyo
-Environment=DOWNLOAD_AS_CBZ=true
 Environment=WEB_UI_UPDATE_INTERVAL=8
 Environment=EXTENSION_REPOS=["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"]
 Environment=FLARESOLVERR_ENABLED=true
