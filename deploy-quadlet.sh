@@ -75,6 +75,9 @@ for file in "${quadlet_files[@]}"; do
   cp "$file" ~/.config/containers/systemd/
 done
 
+echo "启用用户 linger (允许用户服务在注销后继续运行)..."
+loginctl enable-linger
+
 echo "重新加载 systemd 用户守护进程..."
 systemctl --user daemon-reload
 
