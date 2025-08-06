@@ -87,7 +87,7 @@ for file in "${quadlet_files[@]}"; do
 done
 
 echo "启用用户级服务持久化..."
-loginctl enable-linger 2>/dev/null
+loginctl enable-linger $USER 2>/dev/null
 
 echo "重新加载 systemd 用户守护进程..."
 systemctl --user daemon-reload 2>/dev/null
