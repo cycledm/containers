@@ -65,6 +65,17 @@ fi
 
 echo "正在部署服务: $SERVICE_NAME"
 
+# 停止相关服务
+echo "停止相关服务..."
+for file in "${quadlet_files[@]}"; do
+  filename=$(basename "$file")
+  service_name="${filename%.*}"
+  if [[ "$filename" == *.container ]]; then
+    echo "  停止服务: $service_name"
+    systemctl --user stop "$service_name" 2>/dev/null || true
+  fi
+done
+
 # 创建目标目录
 mkdir -p ~/.config/containers/systemd
 
