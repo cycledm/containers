@@ -76,6 +76,10 @@ for file in "${quadlet_files[@]}"; do
   fi
 done
 
+# 清理未使用的网络
+echo "清理未使用的网络..."
+podman network prune -f 2>/dev/null || true
+
 # 创建目标目录
 mkdir -p ~/.config/containers/systemd
 
