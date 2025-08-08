@@ -5,14 +5,15 @@ After=flaresolverr.service
 [Container]
 ContainerName=suwayomi
 Image=ghcr.io/suwayomi/tachidesk:latest
+AutoUpdate=registry
 Network=suwayomi.network
 Network=flaresolverr.network
 PublishPort=14567:4567
-User=root
 Volume=%h/containers/suwayomi/data:/home/suwayomi/.local/share/Tachidesk
+User=root
 Environment=TZ=Asia/Tokyo
 Environment=WEB_UI_UPDATE_INTERVAL=8
-Environment=EXTENSION_REPOS=["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"]
+Environment=EXTENSION_REPOS=[\"https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json\"]
 Environment=FLARESOLVERR_ENABLED=true
 Environment=FLARESOLVERR_URL=http://flaresolverr:8191
 

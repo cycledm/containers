@@ -90,11 +90,15 @@ for file in "${quadlet_files[@]}"; do
   cp "$file" ~/.config/containers/systemd/
 done
 
-echo "启用用户级服务持久化..."
-loginctl enable-linger $USER 2>/dev/null
+# echo "启用用户级服务持久化..."
+# loginctl enable-linger $USER 2>/dev/null
 
 echo "重新加载 systemd 用户守护进程..."
 systemctl --user daemon-reload 2>/dev/null
+
+echo "启用 Podman 自动更新服务..."
+systemctl --user enable --now podman-auto-update 2>/dev/null || true
+systemctl --user enable --now podman-auto-update.timer 2>/dev/null || true
 
 echo "部署完成! 已复制 ${#quadlet_files[@]} 个文件"
 echo "复制的文件:"
