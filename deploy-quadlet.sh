@@ -76,10 +76,6 @@ for file in "${quadlet_files[@]}"; do
   fi
 done
 
-# 清理未使用的网络
-echo "清理未使用的网络..."
-podman network prune -f 2>/dev/null || true
-
 # 创建目标目录
 mkdir -p ~/.config/containers/systemd
 
@@ -89,9 +85,6 @@ for file in "${quadlet_files[@]}"; do
   echo "  复制: $(basename "$file")"
   cp "$file" ~/.config/containers/systemd/
 done
-
-# echo "启用用户级服务持久化..."
-# loginctl enable-linger $USER 2>/dev/null
 
 # 检查是否需要跳过用户级服务持久化
 # 当系统是WSL，版本小于2.6.0，且UID为1000时，跳过持久化
