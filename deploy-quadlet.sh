@@ -93,6 +93,41 @@ done
 # echo "启用用户级服务持久化..."
 # loginctl enable-linger $USER 2>/dev/null
 
+# 检查是否需要跳过用户级服务持久化
+# 当系统是WSL，版本小于2.6.0，且UID为1000时，跳过持久化
+# 参考: https://github.com/microsoft/WSL/issues/10205
+should_skip_linger=false
+
+# 检查是否在WSL环境中
+if grep -qi microsoft /proc/version 2>/dev/null || [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+  # 获取当前用户UID
+  current_uid=$(id -u)
+
+  # 检查UID是否为1000
+  if [ "$current_uid" -eq 1000 ]; then
+    # 获取WSL版本
+    if command -v wsl.exe >/dev/null 2>&1; then
+      # WSL输出是UTF-16编码，需要转换并提取版本号
+      wsl_version=$(wsl.exe --version 2>/dev/null | iconv -f UTF-16LE -t UTF-8 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+      if [ -n "$wsl_version" ]; then
+        # 提取主要版本号 (例如: 2.5.9.0 -> 2.5.9)
+        major_version=$(echo "$wsl_version" | cut -d. -f1-3)
+        # 将版本号转换为数字进行比较 (例如: 2.5.9 -> 20509)
+        version_num=$(echo "$major_version" | awk -F. '{printf "%d%02d%02d", $1, $2, $3}')
+        if [ "$version_num" -lt 20600 ]; then
+          should_skip_linger=true
+          echo "检测到WSL版本 $major_version < 2.6.0，且UID为1000，跳过用户级服务持久化"
+        fi
+      fi
+    fi
+  fi
+fi
+
+if [ "$should_skip_linger" = false ]; then
+  echo "启用用户级服务持久化..."
+  loginctl enable-linger $USER 2>/dev/null || true
+fi
+
 echo "重新加载 systemd 用户守护进程..."
 systemctl --user daemon-reload 2>/dev/null
 
