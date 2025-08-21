@@ -8,7 +8,6 @@ Volume=/etc/localtime:/etc/localtime:ro
 Environment=TZ=Asia/Tokyo
 Environment=MYSQL_ROOT_PASSWORD=root
 Environment=MYSQL_DATABASE=teamspeak
-User=root
 
 [Service]
 Restart=always

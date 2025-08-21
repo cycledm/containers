@@ -23,7 +23,6 @@ Environment=TS3SERVER_DB_NAME=teamspeak
 Environment=TS3SERVER_DB_WAITUNTILREADY=30
 Environment=TS3SERVER_LICENSE=accept
 Environment=TS3SERVER_QUERY_TIMEOUT=30
-User=root
 
 [Service]
 Restart=always
