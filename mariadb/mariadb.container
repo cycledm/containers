@@ -1,0 +1,14 @@
+[Container]
+Image=docker.io/library/mariadb:latest
+ContainerName=mariadb
+AutoUpdate=registry
+Network=mariadb.network
+Volume=%h/containers/mariadb/data:/var/lib/mysql
+Volume=/etc/localtime:/etc/localtime:ro
+Environment=TZ=Asia/Tokyo
+Environment=MYSQL_ROOT_PASSWORD=root
+Environment=MYSQL_DATABASE=teamspeak
+User=root
+
+[Service]
+Restart=always
