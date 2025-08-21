@@ -11,6 +11,9 @@ Network=mariadb.network
 PublishPort=9987:9987/udp
 PublishPort=10011:10011
 PublishPort=30033:30033
+PublishPort=[::]:9987:9987/udp
+PublishPort=[::]:10011:10011
+PublishPort=[::]:30033:30033
 Volume=%h/containers/ts3server/data:/var/ts3server
 Volume=/etc/localtime:/etc/localtime:ro
 Environment=TZ=Asia/Tokyo
