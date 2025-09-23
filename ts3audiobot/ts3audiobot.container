@@ -7,6 +7,7 @@ ContainerName=ts3audiobot
 Image=docker.io/cycledm/ts3audiobot:latest
 AutoUpdate=registry
 Network=ts3server.network
+PublishPort=[::]:58913:58913
 Volume=%h/containers/ts3audiobot/data:/app/data
 Volume=/etc/localtime:/etc/localtime:ro
 Environment=TZ=Asia/Tokyo
