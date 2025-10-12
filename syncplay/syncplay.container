@@ -1,0 +1,15 @@
+[Container]
+ContainerName=syncplay
+Image=docker.io/dnomd343/syncplay:latest
+AutoUpdate=registry
+Network=syncplay.network
+PublishPort=8999:8999
+User=root
+Environment=TZ=Asia/Tokyo
+Environment=PASSWORD="0220"
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
