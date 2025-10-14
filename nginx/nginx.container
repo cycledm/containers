@@ -1,0 +1,16 @@
+[Container]
+Image=docker.io/library/nginx:latest
+ContainerName=nginx
+AutoUpdate=registry
+Network=nginx.network
+Volume=%h/containers/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+Volume=%h/containers/nginx/conf/conf.d:/etc/nginx/conf.d:ro
+Volume=%h/containers/nginx/conf/ssl:/etc/nginx/ssl:ro
+Volume=/etc/localtime:/etc/localtime:ro
+Environment=TZ=Asia/Tokyo
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target
