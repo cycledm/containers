@@ -3,9 +3,13 @@ Image=docker.io/library/nginx:latest
 ContainerName=nginx
 AutoUpdate=registry
 Network=nginx.network
-Volume=%h/containers/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
-Volume=%h/containers/nginx/conf/conf.d:/etc/nginx/conf.d:ro
-Volume=%h/containers/nginx/conf/ssl:/etc/nginx/ssl:ro
+PublishPort=80:80
+PublishPort=443:443
+User=root
+Volume=%h/containers/nginx/data/nginx.conf:/etc/nginx/nginx.conf:ro
+Volume=%h/containers/nginx/data/conf.d:/etc/nginx/conf.d:ro
+Volume=%h/containers/nginx/data/ssl:/etc/nginx/ssl:ro
+Volume=%h/containers/nginx/data/logs:/var/log/nginx
 Volume=/etc/localtime:/etc/localtime:ro
 Environment=TZ=Asia/Tokyo
 
