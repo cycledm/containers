@@ -20,9 +20,9 @@ services:
       - 4567:4567
     volumes:
       - ./data:/home/suwayomi/.local/share/Tachidesk
-      - ${SUWAYOMI_DATA_DIR:-./data}/local:/home/suwayomi/.local/share/Tachidesk/local
-      - ${SUWAYOMI_DATA_DIR:-./data}/backups:/home/suwayomi/.local/share/Tachidesk/backups
-      - ${SUWAYOMI_DATA_DIR:-./data}/extensions:/home/suwayomi/.local/share/Tachidesk/extensions
+      - ${SUWAYOMI_LOCAL_DIR:-./data/local}:/home/suwayomi/.local/share/Tachidesk/local
+      - ${SUWAYOMI_BACKUPS_DIR:-./data/backups}:/home/suwayomi/.local/share/Tachidesk/backups
+      - ${SUWAYOMI_EXTENSIONS_DIR:-./data/extensions}:/home/suwayomi/.local/share/Tachidesk/extensions
     # user: 1000:1000
     networks:
       - postgresql
