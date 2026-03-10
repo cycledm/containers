@@ -1,34 +1,75 @@
 services:
-  flaresolverr:
-    container_name: flaresolverr
-    image: docker.io/flaresolverr/flaresolverr:latest
-    restart: unless-stopped
-    expose:
-      - 8191
-    env_file: .env
-    dns:
-      - 8.8.8.8
-      - 1.1.1.1
-    networks:
-      - flaresolverr
   suwayomi:
-    container_name: suwayomi
     image: ghcr.io/suwayomi/tachidesk:latest
-    restart: unless-stopped
+    container_name: suwayomi
+    restart: on-failure:3
+    environment:
+      - TZ=Asia/Shanghai
+      - DATABASE_TYPE=POSTGRESQL
+      - DATABASE_URL=postgresql://postgresql:5432/suwayomi
+      - DATABASE_USERNAME=suwayomi
+      - DATABASE_PASSWORD=suwayomi
+      - FLARESOLVERR_ENABLED=true
+      - FLARESOLVERR_URL=http://flaresolverr:8191
+      - EXTENSION_REPOS=["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"]
     depends_on:
-      - flaresolverr
+      postgresql:
+        condition: service_healthy
+        restart: true
     ports:
       - 14567:4567
     volumes:
       - ./data:/home/suwayomi/.local/share/Tachidesk
-    env_file: .env
-    user: root
+    # user: 1000:1000
     dns:
       - 8.8.8.8
       - 1.1.1.1
     networks:
+      - postgresql
+      - flaresolverr
       - suwayomi
+  postgresql:
+    image: docker.io/postgres:latest
+    container_name: postgresql
+    restart: always
+    environment:
+      - POSTGRES_USER=suwayomi
+      - POSTGRES_PASSWORD=suwayomi
+      - POSTGRES_DB=suwayomi
+      - PGDATA=/data/postgres
+      - TZ=Asia/Shanghai
+      - PGTZ=Asia/Shanghai
+      # - TZ=${TZ:-Etc/UTC}
+      # - PGTZ=${TZ:-Etc/UTC}
+    expose:
+      - 5432
+    ports:
+      - 15432:5432
+    volumes:
+      - ./postgres:/data/postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - postgresql
+  flaresolverr:
+    image: ghcr.io/thephaseless/byparr:latest
+    container_name: flaresolverr
+    restart: always
+    expose:
+      - 8191
+    init: true
+    environment:
+      - TZ=Asia/Shanghai
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    networks:
       - flaresolverr
 networks:
-  suwayomi: {}
+  postgresql: {}
   flaresolverr: {}
+  suwayomi: {}
