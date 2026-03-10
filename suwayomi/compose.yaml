@@ -1,6 +1,6 @@
 services:
   suwayomi:
-    image: ghcr.io/suwayomi/tachidesk:latest
+    image: ghcr.io/suwayomi/tachidesk:preview
     container_name: suwayomi
     restart: on-failure:3
     environment:
