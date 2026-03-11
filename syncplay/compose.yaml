@@ -7,7 +7,7 @@ services:
       - 8999:8999
     environment:
       TZ: ${TZ:-Etc/UTC}
-      PASSWORD: ${PASSWORD:-}
+      PASSWORD: ${PASSWORD}
     networks:
       - network
 networks:
