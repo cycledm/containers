@@ -1,0 +1,39 @@
+services:
+  teamspeak:
+    image: docker.io/library/teamspeak:latest
+    container_name: teamspeak
+    restart: always
+    ports:
+      - 9987:9987/udp
+      - 10011:10011
+      - 30033:30033
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+      TS3SERVER_DB_PLUGIN: ts3db_mariadb
+      TS3SERVER_DB_SQLCREATEPATH: create_mariadb
+      TS3SERVER_DB_HOST: db
+      TS3SERVER_DB_USER: root
+      TS3SERVER_DB_PASSWORD: root
+      TS3SERVER_DB_NAME: teamspeak
+      TS3SERVER_DB_WAITUNTILREADY: 30
+      TS3SERVER_QUERY_TIMEOUT: 30
+      TS3SERVER_LICENSE: accept
+    volumes:
+      - ./data:/var/ts3server
+    networks:
+      - network
+  db:
+    image: docker.io/library/mariadb:latest
+    container_name: teamspeak-db
+    restart: always
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+      MYSQL_DATABASE: teamspeak
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./mysql:/var/lib/mysql
+    networks:
+      - network
+networks:
+  network:
+    enable_ipv6: true

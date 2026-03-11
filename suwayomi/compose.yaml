@@ -29,7 +29,7 @@ services:
       - flaresolverr
       - suwayomi
   postgresql:
-    image: docker.io/postgres:latest
+    image: docker.io/library/postgres:latest
     container_name: postgresql
     restart: always
     environment:

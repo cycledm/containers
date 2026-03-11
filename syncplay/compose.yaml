@@ -1,0 +1,15 @@
+services:
+  syncplay:
+    image: docker.io/dnomd343/syncplay:latest
+    container_name: syncplay
+    restart: always
+    ports:
+      - 8999:8999
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+      PASSWORD: ${PASSWORD:-}
+    networks:
+      - network
+networks:
+  network:
+    enable_ipv6: true
