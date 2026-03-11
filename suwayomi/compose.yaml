@@ -4,14 +4,14 @@ services:
     container_name: suwayomi
     restart: on-failure:3
     environment:
-      - TZ=${TZ:-Etc/UTC}
-      - DATABASE_TYPE=POSTGRESQL
-      - DATABASE_URL=postgresql://${POSTGRES_HOST:-postgresql}:${POSTGRES_PORT:-5432}/${POSTGRES_DB}
-      - DATABASE_USERNAME=${POSTGRES_USER}
-      - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
-      - FLARESOLVERR_ENABLED=true
-      - FLARESOLVERR_URL=http://flaresolverr:8191
-      - EXTENSION_REPOS=["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"]
+      TZ: ${TZ:-Etc/UTC}
+      DATABASE_TYPE: POSTGRESQL
+      DATABASE_URL: postgresql://${POSTGRES_HOST:-postgresql}:${POSTGRES_PORT:-5432}/${POSTGRES_DB}
+      DATABASE_USERNAME: ${POSTGRES_USER}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      FLARESOLVERR_ENABLED: true
+      FLARESOLVERR_URL: http://flaresolverr:8191
+      EXTENSION_REPOS: '["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"]'
     depends_on:
       postgresql:
         condition: service_healthy
@@ -33,12 +33,12 @@ services:
     container_name: postgresql
     restart: always
     environment:
-      - POSTGRES_DB=${POSTGRES_DB:-suwayomi}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - PGDATA=/data/postgres
-      - TZ=${TZ:-Etc/UTC}
-      - PGTZ=${TZ:-Etc/UTC}
+      POSTGRES_DB: ${POSTGRES_DB:-suwayomi}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: /data/postgres
+      TZ: ${TZ:-Etc/UTC}
+      PGTZ: ${TZ:-Etc/UTC}
     expose:
       - 5432
     ports:
@@ -61,7 +61,7 @@ services:
       - 8191
     init: true
     environment:
-      - TZ=${TZ:-Etc/UTC}
+      TZ: ${TZ:-Etc/UTC}
     networks:
       - flaresolverr
 networks:
