@@ -24,9 +24,7 @@ services:
       - ${SUWAYOMI_EXTENSIONS_DIR:-./data/extensions}:/home/suwayomi/.local/share/Tachidesk/extensions
     # user: 1000:1000
     networks:
-      - app
-      - db
-      - flaresolverr
+      - network
   db:
     image: docker.io/library/postgres:latest
     restart: always
@@ -50,7 +48,7 @@ services:
       retries: 5
       start_period: 30s
     networks:
-      - db
+      - network
   flaresolverr:
     image: ghcr.io/thephaseless/byparr:latest
     restart: always
@@ -60,8 +58,7 @@ services:
     environment:
       TZ: ${TZ:-Etc/UTC}
     networks:
-      - flaresolverr
+      - network
 networks:
-  app: {}
-  db: {}
-  flaresolverr: {}
+  network:
+    enable_ipv6: true
