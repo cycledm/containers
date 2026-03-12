@@ -12,7 +12,7 @@ services:
       FLARESOLVERR_URL: http://flaresolverr:8191
       EXTENSION_REPOS: '["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"]'
     depends_on:
-      postgresql:
+      db:
         condition: service_healthy
         restart: true
     ports:
