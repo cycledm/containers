@@ -1,7 +1,6 @@
 services:
-  suwayomi:
+  app:
     image: ghcr.io/suwayomi/tachidesk:preview
-    container_name: suwayomi
     restart: on-failure:3
     environment:
       TZ: ${TZ:-Etc/UTC}
@@ -25,12 +24,11 @@ services:
       - ${SUWAYOMI_EXTENSIONS_DIR:-./data/extensions}:/home/suwayomi/.local/share/Tachidesk/extensions
     # user: 1000:1000
     networks:
-      - postgresql
+      - app
+      - db
       - flaresolverr
-      - suwayomi
-  postgresql:
+  db:
     image: docker.io/library/postgres:latest
-    container_name: postgresql
     restart: always
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-suwayomi}
@@ -52,10 +50,9 @@ services:
       retries: 5
       start_period: 30s
     networks:
-      - postgresql
+      - db
   flaresolverr:
     image: ghcr.io/thephaseless/byparr:latest
-    container_name: flaresolverr
     restart: always
     expose:
       - 8191
@@ -65,6 +62,6 @@ services:
     networks:
       - flaresolverr
 networks:
-  postgresql: {}
+  app: {}
+  db: {}
   flaresolverr: {}
-  suwayomi: {}

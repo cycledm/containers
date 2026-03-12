@@ -1,7 +1,6 @@
 services:
   db:
     image: docker.io/library/postgres:latest
-    container_name: postgres
     restart: always
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-postgres}
@@ -24,7 +23,6 @@ services:
       - network
   adminer:
     image: docker.io/library/adminer:latest
-    container_name: adminer
     restart: always
     depends_on:
       db:

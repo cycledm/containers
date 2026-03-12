@@ -1,7 +1,6 @@
 services:
-  syncplay:
+  app:
     image: docker.io/dnomd343/syncplay:latest
-    container_name: syncplay
     restart: always
     ports:
       - 8999:8999
