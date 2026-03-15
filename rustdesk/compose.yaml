@@ -24,6 +24,8 @@ services:
     image: docker.io/rustdesk/rustdesk-server:latest
     restart: always
     command: hbbr
+    environment:
+      TZ: ${TZ:-Etc/UTC}
     ports:
       - 21117:21117
       - 21119:21119
