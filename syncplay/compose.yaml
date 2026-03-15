@@ -2,11 +2,25 @@ services:
   app:
     image: docker.io/dnomd343/syncplay:latest
     restart: always
-    ports:
-      - 8999:8999
     environment:
       TZ: ${TZ:-Etc/UTC}
       PASSWORD: ${PASSWORD}
+      DISABLE_READY: TRUE
+      MOTD: |
+        欢迎使用Syncplay！
+        此服务由Southcraft提供，服务器所有者为CycleDM。
+    command:
+      - --persistent
+      - --enable-tls
+      - --enable-stats
+      - --listen-ipv4 127.0.0.1
+      - --listen-ipv6 ::1
+    ports:
+      - 8999:8999
+    volumes:
+      - ./data:/data
+      - ${CERTS_DIR:-./certs}:/certs:ro
+    # user: 1000:1000
     networks:
       - network
 networks:
