@@ -1,19 +1,22 @@
+# Syncplay 容器介绍
+# https://github.com/dnomd343/syncplay-docker/blob/master/docs/README_zh-Hans.md
 services:
   app:
     image: docker.io/dnomd343/syncplay:latest
     restart: always
+    # 配置优先级：命令行参数 > 配置文件 > 环境变量
     environment:
       TZ: ${TZ:-Etc/UTC}
       PASSWORD: ${PASSWORD}
-      DISABLE_READY: TRUE
       CERT_DIR: /certs/${CERT_NAME}
+      DISABLE_READY: TRUE
+      ENABLE_TLS: TRUE
+      PERSISTENT: TRUE
+      ENABLE_STATS: TRUE
       MOTD: |
-        欢迎使用Syncplay！
-        此服务由Southcraft提供，服务器所有者为CycleDM。
-    command:
-      - --persistent
-      - --enable-tls
-      - --enable-stats
+        欢迎使用 Syncplay 服务器
+        提供方: Southcraft
+        所有者: CycleDM
     ports:
       - 8999:8999
     volumes:
