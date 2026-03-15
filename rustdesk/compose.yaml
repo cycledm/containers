@@ -1,0 +1,37 @@
+# RustDesk 官网
+# https://rustdesk.com/zh-cn/
+services:
+  hbbs:
+    image: docker.io/rustdesk/rustdesk-server:latest
+    restart: always
+    command: hbbs
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+    ports:
+      - 21114:21114
+      - 21115:21115
+      - 21116:21116
+      - 21118:21118
+      - 21116:21116/udp
+    volumes:
+      - ./data:/root
+    # user: 1000:1000
+    depends_on:
+      - hbbr
+    networks:
+      - network
+  hbbr:
+    image: docker.io/rustdesk/rustdesk-server:latest
+    restart: always
+    command: hbbr
+    ports:
+      - 21117:21117
+      - 21119:21119
+    volumes:
+      - ./data:/root
+    # user: 1000:1000
+    networks:
+      - network
+networks:
+  network:
+    enable_ipv6: true
