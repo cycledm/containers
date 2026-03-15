@@ -9,10 +9,10 @@ services:
       TZ: ${TZ:-Etc/UTC}
       PASSWORD: ${PASSWORD}
       CERT_DIR: /certs/${CERT_NAME}
-      DISABLE_READY: TRUE
-      ENABLE_TLS: TRUE
       PERSISTENT: TRUE
+      ENABLE_TLS: TRUE
       ENABLE_STATS: TRUE
+      DISABLE_READY: TRUE
       MOTD: |
         欢迎使用 Syncplay 服务器
         提供方: Southcraft
