@@ -8,6 +8,9 @@ services:
       DATABASE_URL: postgresql://${POSTGRES_HOST:-db}:${POSTGRES_PORT:-5432}/${POSTGRES_DB:-suwayomi}
       DATABASE_USERNAME: ${POSTGRES_USER}
       DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      AUTH_MODE: ${SUWAYOMI_AUTH_MODE:-none}
+      AUTH_USERNAME: ${SUWAYOMI_AUTH_USERNAME}
+      AUTH_PASSWORD: ${SUWAYOMI_AUTH_PASSWORD}
       FLARESOLVERR_ENABLED: true
       FLARESOLVERR_URL: http://flaresolverr:8191
       EXTENSION_REPOS: '["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"]'
