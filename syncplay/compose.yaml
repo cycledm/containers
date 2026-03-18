@@ -20,7 +20,7 @@ services:
     ports:
       - 8999:8999
     volumes:
-      - ./data:/data
+      - ./data:/data:delegated
       - ${CERT_DIR:-./certs}:/certs:ro
     # user: 1000:1000
     networks:

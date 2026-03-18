@@ -1,6 +1,6 @@
 services:
   app:
     volumes:
-      - ${SUWAYOMI_LOCAL_DIR:-./data/local}:/home/suwayomi/.local/share/Tachidesk/local
-      - ${SUWAYOMI_BACKUPS_DIR:-./data/backups}:/home/suwayomi/.local/share/Tachidesk/backups
-      - ${SUWAYOMI_EXTENSIONS_DIR:-./data/extensions}:/home/suwayomi/.local/share/Tachidesk/extensions
+      - ${SUWAYOMI_LOCAL_DIR:-./data/local}:/home/suwayomi/.local/share/Tachidesk/local:delegated
+      - ${SUWAYOMI_BACKUPS_DIR:-./data/backups}:/home/suwayomi/.local/share/Tachidesk/backups:delegated
+      - ${SUWAYOMI_EXTENSIONS_DIR:-./data/extensions}:/home/suwayomi/.local/share/Tachidesk/extensions:delegated

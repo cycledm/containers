@@ -22,7 +22,7 @@ services:
     ports:
       - 4567:4567
     volumes:
-      - ./data:/home/suwayomi/.local/share/Tachidesk
+      - ./data:/home/suwayomi/.local/share/Tachidesk:delegated
     # user: 1000:1000
     networks:
       - network
@@ -39,7 +39,7 @@ services:
     expose:
       - 5432
     volumes:
-      - ./postgres:/data/postgres
+      - ./postgres:/data/postgres:delegated
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}"]
       interval: 10s
