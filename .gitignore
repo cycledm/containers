@@ -1,5 +1,7 @@
 .DS_Store
+.env
 config
 conf
 data
-.env
+plugins
+extensions
