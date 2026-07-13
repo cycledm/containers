@@ -1,0 +1,11 @@
+# https://hub.docker.com/r/snowdreamtech/frpc
+services:
+  app:
+    image: snowdreamtech/frpc:latest
+    container_name: frpc
+    restart: always
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+    volumes:
+      - ./config/frpc.toml:/etc/frp/frpc.toml:ro
+    network_mode: host

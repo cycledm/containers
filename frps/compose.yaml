@@ -1,0 +1,18 @@
+# https://hub.docker.com/r/snowdreamtech/frps
+services:
+  app:
+    image: snowdreamtech/frps:latest
+    container_name: frps
+    restart: always
+    environment:
+      TZ: ${TZ:-Etc/UTC}
+    volumes:
+      - ./config/frps.toml:/etc/frp/frps.toml:ro
+    network_mode: host
+    # networks:
+    #   - network
+    # ports:
+    #   - 7000:7000
+# networks:
+#   network:
+#     enable_ipv6: true
