@@ -1,0 +1,14 @@
+serverAddr = "dev.southcraft.net"
+serverPort = 7000
+user = "username"
+
+[auth]
+method = "token"
+token = ""
+
+[[proxies]]
+name = "minecraft"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 25565
+remotePort = 14729
