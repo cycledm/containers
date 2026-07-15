@@ -5,10 +5,11 @@ services:
     restart: always
     container_name: anytls-server
     ports:
-      - 9443:9443
+      - ${PORT:-9443}:${PORT:-9443}
     environment:
       TZ: ${TZ:-Etc/UTC}
       MIMA: ${MIMA}
+      PORT: ${PORT:-9443}
     networks:
       - network
 networks:
