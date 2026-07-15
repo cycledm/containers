@@ -1,0 +1,15 @@
+# https://hub.docker.com/r/jonnyan404/anytls
+services:
+  app:
+    image: jonnyan404/anytls:latest
+    restart: always
+    container_name: anytls-server
+    ports:
+      - 9443:9443
+    environment:
+      - TZ=Asia/Shanghai
+    networks:
+      - network
+networks:
+  network:
+    enable_ipv6: true
